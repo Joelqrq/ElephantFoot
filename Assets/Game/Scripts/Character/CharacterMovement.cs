@@ -101,6 +101,6 @@ public class CharacterMovement : MonoBehaviour, IDamageable
         animator.SetBool("Idle", false);
         animator.SetBool("Walk", false);
         animator.SetBool("Death", true);
-        PauseSystem.OnPause.Invoke();
+        // will add this in a coroutine PauseSystem.OnPause.Invoke();
     }
 }
