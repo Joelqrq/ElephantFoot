@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Game/Scenes/Main Menu.unity
+    path: Assets/Meltdown/Scenes/Main Menu.unity
     guid: fce7caec9490e944b861a3796d3c0cc5
   - enabled: 1
-    path: Assets/Game/Scenes/Map.unity
+    path: Assets/Meltdown/Scenes/Map.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}
