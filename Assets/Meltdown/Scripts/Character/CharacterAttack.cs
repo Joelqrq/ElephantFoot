@@ -92,13 +92,7 @@ public class CharacterAttack : MonoBehaviour {
         if (other.gameObject.layer.CompareLayer(attackMask)) {
             IDamageable iDamage = other.collider.GetComponent<IDamageable>();
             audioSource.PlayOneShot(absorbAudios[Random.Range(0, absorbAudios.Length)], 0.5f);
-            iDamage?.OnDeath();
+            iDamage?.OnDamaged(100f);
         }
-    }
-
-    private void OnDrawGizmos() {
-        Gizmos.color = Color.magenta;
-        Gizmos.matrix = Matrix4x4.TRS(transform.position + laserOffset, transform.rotation, Vector3.one);
-        Gizmos.DrawWireCube(Vector3.zero, laserSize + (transform.forward * attackRange));
     }
 }

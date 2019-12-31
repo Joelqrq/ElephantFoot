@@ -12,7 +12,6 @@ public class AI : MonoBehaviour, IDamageable {
     private Transform target;
     protected float health;
 
-    public Action OnDeathEvent;
     public event Action<AI> ReturnToPoolEvent;
     [SerializeField] private Animator animator;
     [SerializeField] private Vector3 attackOffset;
@@ -56,14 +55,12 @@ public class AI : MonoBehaviour, IDamageable {
 
         animator.SetFloat("velocity", agent.desiredVelocity.sqrMagnitude);
 
-        if (target == null)
-            return;
-
         agent.transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
         agent.SetDestination(target.position);
     }
 
     private void FixedUpdate() {
+        
         if (state == AIState.Search) {
             Search();
         } else if (state == AIState.Attack) {
@@ -73,11 +70,14 @@ public class AI : MonoBehaviour, IDamageable {
 
     public void OnDamaged(float damage) {
         health = 0f;
-        if (health <= 0f)
+        if (health <= 0f) {
+            animator.SetBool("death", true);
             OnDeath();
+        }
     }
 
     public void OnDeath() {
+        state = AIState.Death;
         if (attackCoroutine != null) {
             StopCoroutine(attackCoroutine);
         }
@@ -85,19 +85,14 @@ public class AI : MonoBehaviour, IDamageable {
         foreach (ParticleSystem particle in attackParticles) {
             particle.Stop(true, ParticleSystemStopBehavior.StopEmitting);
         }
-        //animation
-        animator.SetBool("death", true);
         target = null;
+
+        ReturnToPoolEvent.Invoke(this);
         health = data.Health;
-        OnDeathEvent?.Invoke();
-        if (ReturnToPoolEvent == null)
-            Debug.LogWarning("No methods attached to returntopoolEvent!");
-        else
-            ReturnToPoolEvent.Invoke(this);
     }
 
     private void Search() {
-
+        
         //In range
         if ((agent.transform.position - target.position).sqrMagnitude < data.Range * data.Range) {
             RaycastHit hit;
@@ -160,12 +155,9 @@ public class AI : MonoBehaviour, IDamageable {
         attackCoroutine = null;
     }
 
-    private void OnDrawGizmos() {
-        Gizmos.DrawWireCube(transform.position + attackOffset, attackSize);
-    }
-
     private enum AIState {
         Search,
-        Attack
+        Attack,
+        Death
     }
 }

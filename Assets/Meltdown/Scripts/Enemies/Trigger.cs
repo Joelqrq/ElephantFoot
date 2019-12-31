@@ -34,6 +34,7 @@ public abstract class Trigger : MonoBehaviour {
     protected abstract void HasExit();
 
     protected void InvokeTriggerEvent() {
+        Debug.LogWarning($"Nothing was binded to {name}'s trigger!");
         OnTrigger.Invoke();
     }
 }
