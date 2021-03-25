@@ -1,5 +1,5 @@
-# Meltdown
-This game project was developed to participate in [Mini Jam 39: Monsters](https://cosminmosmin.itch.io/meltdown).
+# [Meltdown](https://cosminmosmin.itch.io/meltdown)
+This game project was developed to participate in [Mini Jam 39: Monsters](https://itch.io/jam/mini-jam-39-monsters/rate/502833).
 
 # Description
 Play as the Elephant's foot, formed in the nuclear reactor’s core during a meltdown. You have to fight your way through the nuclear power plant, fighting weirdos in hazard suits trying to cool you down with water guns.
